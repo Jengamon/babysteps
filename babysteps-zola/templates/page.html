@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import "disqus.html" as disqus %}
+
+{% block content %}
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        {% set author = page.author | default(value=config.extra.site.author) %}
+        <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
+        <p class="post-meta"><time datetime="{{ page.date | date(format='%+') }}" itemprop="datePublished">{{ page.date
+                | date(format="%b %-d, %Y") }}</time>{% if author %} • <span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span itemprop="name">{{ author }}</span></span>{% endif %}</p>
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ page.content | safe }}
+    </div>
+
+    {% if page.extra.disqus.shortname %}
+    {{ disqus::disqus(identifier=section.extra.disqus.shortname) }}
+    {% endif %}
+
+    <!-- NDM: added this -->
+    {% if page.extra.no_anchor %}
+    {% else %}
+    <script src="{{ get_url(path='/static/anchor.js') }}"></script>
+    <script>
+        // Add anchors on DOMContentLoaded
+        document.addEventListener("DOMContentLoaded", function (event) {
+            anchors.add();
+        });
+    </script>
+    {% endif %}
+
+</article>
+{% endblock %}

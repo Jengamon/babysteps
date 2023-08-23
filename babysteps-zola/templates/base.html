@@ -1,0 +1,26 @@
+{% extends "zola-minima/templates/index.html" %}
+{% import "icons.html" as icons %}
+
+{% block extra_head %}
+<meta name="description"
+    content="{{ section.description | default(value=config.description) | striptags | safe | truncate(length=160)}}">
+<link rel="canonical" href="{{ current_url | replace(from='index.html', to='') }}">
+{% endblock %}
+
+{% block extra_footer %}
+<div class="footer-col footer-col-2">
+    <ul class="social-media-list">
+        {% if config.extra.site.github_username %}
+        <li>
+            {{ icons::github(username=config.extra.site.github_username) }}
+        </li>
+        {% endif %}
+
+        {% if config.extra.site.twitter_username %}
+        <li>
+            {{ icons::twitter(usename=config.extra.site.twitter_username) }}
+        </li>
+        {% endif %}
+        </ui>
+</div>
+{% endblock %}

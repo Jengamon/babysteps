@@ -1,0 +1,3 @@
+[submodule "babysteps-zola/themes/zola-minima"]
+	path = babysteps-zola/themes/zola-minima
+	url = https://github.com/onur/zola-minima.git
